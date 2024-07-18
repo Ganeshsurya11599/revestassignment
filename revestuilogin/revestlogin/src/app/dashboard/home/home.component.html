@@ -1,0 +1,121 @@
+<mat-toolbar color="primary">
+    <mat-toolbar-row>
+      <span>Welcome {{userdetails.role}} {{userdetails.username}}</span>
+      <span class="spacer"></span>
+      <button mat-button (click)="logout()">Logout</button>
+    </mat-toolbar-row>
+  </mat-toolbar>
+<div class="container mt-3">
+    <div class="row">
+        <div class="text-center" [ngClass]="{'col-6': userdetails.role == 'admin','col-12 max-width': userdetails.role == 'user'}">
+            <mat-card class="mt-2">
+                <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+                    <div class="list-view text-center">
+                        <div class="list-header">
+                            <h2 class="bounceOut">Create User</h2>
+                        </div>
+                        <br>
+                        <div class="form-container">
+                            <mat-form-field appearance="outline">
+                                <mat-label>Username</mat-label>
+                                <input matInput formControlName="username" type="text"
+                                    placeholder="Enter your username">
+                                <mat-error
+                                    *ngIf="loginForm.controls['username'].invalid && (loginForm.controls['username'].dirty || loginForm.controls['username'].touched)">
+                                    <span *ngIf="loginForm.controls['username'].errors['required']">username is
+                                        required</span>
+                                </mat-error>
+                            </mat-form-field>
+
+                            <mat-form-field appearance="outline">
+                                <mat-label>Email</mat-label>
+                                <input matInput formControlName="email" type="email" placeholder="Enter your email">
+                                <mat-error
+                                    *ngIf="loginForm.controls['email'].invalid && (loginForm.controls['email'].dirty || loginForm.controls['email'].touched)">
+                                    <span *ngIf="loginForm.controls['email'].errors['required']">Email is
+                                        required</span>
+                                    <span *ngIf="loginForm.controls['email'].errors['email']">Email must be a valid
+                                        email
+                                        address</span>
+                                </mat-error>
+                            </mat-form-field>
+
+                            <mat-form-field appearance="outline">
+                                <mat-label>Select Role</mat-label>
+                                <mat-select formControlName="role">
+                                    <mat-option value="admin">Admin</mat-option>
+                                    <mat-option value="user">User</mat-option>
+                                </mat-select>
+                                <mat-error
+                                    *ngIf="loginForm.controls['role'].invalid && (loginForm.controls['role'].dirty || loginForm.controls['role'].touched)">
+                                    <span *ngIf="loginForm.controls['role'].errors['required']">Role is
+                                        required</span>
+                                </mat-error>
+                            </mat-form-field>
+
+                            <mat-form-field appearance="outline">
+                                <mat-label>Password</mat-label>
+                                <input matInput formControlName="password" type="password"
+                                    placeholder="Enter your password">
+                                <mat-error
+                                    *ngIf="loginForm.controls['password'].invalid && (loginForm.controls['password'].dirty || loginForm.controls['password'].touched)">
+                                    <span *ngIf="loginForm.controls['password'].errors['required']">Password is
+                                        required</span>
+                                    <span *ngIf="loginForm.controls['password'].errors['minlength']">Password must be at
+                                        least 6
+                                        characters</span>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <br>
+                    <button mat-raised-button color="primary" type="submit"
+                        [disabled]="loginForm.invalid">Create</button>
+                    <br>
+                    <br>
+                </form>
+            </mat-card>
+            <br>
+        </div>
+        <div class="col-6 mt-3" *ngIf = "userdetails.role == 'admin'">
+            <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+                <!-- Position Column -->
+                <ng-container matColumnDef="user_id">
+                  <th mat-header-cell *matHeaderCellDef> ID </th>
+                  <td mat-cell *matCellDef="let element"> {{element.user_id}} </td>
+                </ng-container>
+              
+                <!-- Name Column -->
+                <ng-container matColumnDef="username">
+                  <th mat-header-cell *matHeaderCellDef> User Name</th>
+                  <td mat-cell *matCellDef="let element"> {{element.username}} </td>
+                </ng-container>
+
+                <!-- Email Column -->
+                <ng-container matColumnDef="email">
+                    <th mat-header-cell *matHeaderCellDef> Email</th>
+                    <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+                  </ng-container>
+
+                  <!-- Role Column -->
+                <ng-container matColumnDef="role">
+                    <th mat-header-cell *matHeaderCellDef> Role </th>
+                    <td mat-cell *matCellDef="let element"> {{element.role}} </td>
+                  </ng-container>
+              
+                <!-- Active Column with Toggle -->
+                <ng-container matColumnDef="active">
+                  <th mat-header-cell *matHeaderCellDef> Active </th>
+                  <td mat-cell *matCellDef="let element">
+                    <mat-slide-toggle [(ngModel)]="element.is_active" (change)="toggleActive(element)">
+                    </mat-slide-toggle>
+                  </td>
+                </ng-container>
+              
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+              </table>
+        </div>
+    </div>
+</div>

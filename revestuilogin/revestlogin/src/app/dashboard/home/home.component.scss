@@ -1,0 +1,54 @@
+.list-view{
+    border:1px solid rgba(0,0,0,.03);
+    box-shadow: 0 2px 2px rgba(0,0,0,.24), 0 0 2px rgba(0,0,0,.12);
+    margin: 4px;
+}
+.max-width mat-card{
+    width: 500px !important;
+    margin: 0 auto !important;
+}
+.list-header{
+    color: rgba(0,0,0,.54);
+    background:rgba(0,0,0,.03);
+    padding: 8px 20px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.form-container{
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+}
+
+@keyframes bounceOut {
+    20% {
+      transform: scale3d(0.9, 0.9, 0.9);
+    }
+  
+    50%,
+    55% {
+      opacity: 1;
+      transform: scale3d(1.1, 1.1, 1.1);
+    }
+  
+    to {
+      opacity: 0;
+      transform: scale3d(0.3, 0.3, 0.3);
+    }
+  }
+  
+  .bounceOut {
+    animation-duration: 5s;
+    animation-name: bounceOut;
+  }
+  .btn{
+    width: 100%;
+    padding: 5px;
+  }
+
+  // Example custom styles
+.spacer {
+    flex: 1 1 auto;
+  }
+  
